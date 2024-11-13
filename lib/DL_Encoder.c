@@ -1,26 +1,26 @@
 #include "DL_Encoder.h"
 
-void DL_encInit(DL_Encoder *encoder, GPIO_TypeDef *port, uint16_t pin_clk, uint16_t pin_data, uint16_t pin_sw)	//Инициализатор
+void DL_encInit(DL_Encoder *encoder, GPIO_TypeDef *port, uint16_t pin_clk, uint16_t pin_data, uint16_t pin_sw)  //Инициализатор
 {
-	encoder->port = port;			//Порт подключения энкодера
+	encoder->port = port;  //Порт подключения энкодера
 
-	encoder->pin_clk = pin_clk;		//Пин подключения clk
-	encoder->pin_data = pin_data;	//Пин подключения data
-	encoder->pin_sw = pin_sw;		//Пин подключения кнопки
+	encoder->pin_clk = pin_clk;  //Пин подключения clk
+	encoder->pin_data = pin_data;  //Пин подключения data
+	encoder->pin_sw = pin_sw;  //Пин подключения кнопки
 
-	encoder->last_clk_state = HAL_GPIO_ReadPin(port, pin_clk);	//Предыдущее состояние пина clk
-	encoder->last_sw_state = HAL_GPIO_ReadPin(port, pin_sw);	//Предыдущее состояние пина кнопки
+	encoder->last_clk_state = HAL_GPIO_ReadPin(port, pin_clk);  //Предыдущее состояние пина clk
+	encoder->last_sw_state = HAL_GPIO_ReadPin(port, pin_sw);  //Предыдущее состояние пина кнопки
 
-	encoder->handler = NULL;	//Обработчик не задан
+	encoder->handler = NULL;  //Обработчик не задан
 
-	encoder->pos = 0;		//Счетчик позиции равен нулю
+	encoder->pos = 0;  //Счетчик позиции равен нулю
 }
-void DL_encSetHandler(DL_Encoder *encoder, void (*handler)(DL_EncEvent))	//Привязка обработчика событий энкодера
+void DL_encSetHandler(DL_Encoder *encoder, void (*handler)(DL_EncEvent))  //Привязка обработчика событий энкодера
 {
 	encoder->handler = handler;
 }
 
-void DL_encTick(DL_Encoder *encoder)	//Тикер для генерации событий и обновления счетчика поворотов
+void DL_encTick(DL_Encoder *encoder)  //Тикер для генерации событий и обновления счетчика поворотов
 {
 	static uint32_t timer_frot = 0;				//Программный таймер для событий быстрых поворотов
 	static int16_t counter_frot = 0;			//Счетчик переключений при быстром повороте
@@ -110,15 +110,15 @@ void DL_encTick(DL_Encoder *encoder)	//Тикер для генерации со
 	}
 }
 
-uint32_t DL_encGetPos(DL_Encoder *encoder)								//Вернуть позицию энкодера
+uint32_t DL_encGetPos(DL_Encoder *encoder)  //Вернуть позицию энкодера
 {
 	return encoder->pos;
 }
-void DL_encSetPos(DL_Encoder *encoder, uint32_t pos)					//Задать позицию энкодера
+void DL_encSetPos(DL_Encoder *encoder, uint32_t pos)  //Задать позицию энкодера
 {
 	encoder->pos = pos;
 }
-void DL_encSetNull(DL_Encoder *encoder)									//Установка нулевой позиции
+void DL_encSetNull(DL_Encoder *encoder)  //Установка нулевой позиции
 {
 	encoder->pos = 0;
 }
