@@ -59,8 +59,8 @@ DL_encInit(&my_enc, GPIOA, GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2);  //Параме�
 ```c
 while (1)
 {
- DL_encTick(&my_enc);
- ...
+ 	DL_encTick(&my_enc);  //Функция-тикер, обязательная для работы
+ 	...
 }
 ```
 Для работы с позицией энкодера:
@@ -107,5 +107,5 @@ void myEncHandler(DL_EncEvent event)
 
 Привязать обработчик:
 ```c
-DL_encSetHandler(&my_enc, myEncHandler);
+DL_encSetHandler(&my_enc, myEncHandler);  //Теперь можно обрабатывать события =)
 ```
