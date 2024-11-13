@@ -17,10 +17,16 @@ typedef struct								//Структура с данными энкодера
 	uint8_t last_sw_state;						//Последнее состояние пина кнопки
 
 	void (*handler)(DL_EncEvent);				//Обработчик событий энкодера
+
+	int32_t pos;								//Позиция энкодера
 } DL_Encoder;
 
-void DL_encoderInit(DL_Encoder *encoder, GPIO_TypeDef *port, uint16_t pin_clk, uint16_t pin_data, uint16_t pin_sw);
-void DL_encoderSetHandler(DL_Encoder *encoder, void (*handler)(DL_EncEvent));
-void DL_encoderTick(DL_Encoder *encoder);		//Функция "Тикер" для программного отслеживания событий
+void DL_encInit(DL_Encoder *encoder, GPIO_TypeDef *port, uint16_t pin_clk, uint16_t pin_data, uint16_t pin_sw);  //Инициализатор
+void DL_encSetHandler(DL_Encoder *encoder, void (*handler)(DL_EncEvent));  //Привязка обработчика событий энкодера
 
+void DL_encTick(DL_Encoder *encoder);  //Функция "Тикер" для программного отслеживания событий
+
+uint32_t DL_encGetPos(DL_Encoder *encoder);  //Возврат позиции энкодера
+void DL_encSetPos(DL_Encoder *encoder, uint32_t pos);  //Установка позиции энкодера
+void DL_encSetNull(DL_Encoder *encoder);  //Установка нулевой позиции энкодера
 #endif
