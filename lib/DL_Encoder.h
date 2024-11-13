@@ -19,6 +19,8 @@ typedef struct								//Структура с данными энкодера
 	void (*handler)(DL_EncEvent);				//Обработчик событий энкодера
 } DL_Encoder;
 
+void DL_encoderInit(DL_Encoder *encoder, GPIO_TypeDef *port, uint16_t pin_clk, uint16_t pin_data, uint16_t pin_sw);
+void DL_encoderSetHandler(DL_Encoder *encoder, void (*handler)(DL_EncEvent));
 void DL_encoderTick(DL_Encoder *encoder);		//Функция "Тикер" для программного отслеживания событий
 
 #endif
